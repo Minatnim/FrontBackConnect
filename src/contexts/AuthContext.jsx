@@ -1,5 +1,5 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
-import axios from "axios";
+import { getMe } from "../api/todoApi";
 
 const AuthContext = createContext();
 //มันจะมี consumer กับ provider มาให้
@@ -13,15 +13,10 @@ export default function AuthContextProvider(props) {
   useEffect(() => {
     let token = localStorage.getItem("token");
     if (!token) return;
-    axios
-      .get("http://localhost:8088/getMe", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((rs) => {
-        setUser(rs.data);
-      });
+    // axios.get("http://localhost:8088/getMe", //ไปเอาจาก API มาใช้ ไม่ต้องยิง Axios
+    getMe(token).then((rs) => {
+      setUser(rs.data);
+    });
   }, []);
 
   const logout = () => {

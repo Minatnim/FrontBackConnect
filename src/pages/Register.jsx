@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import { register } from "../api/todoApi";
 
 export default function Register() {
   const [input, setInput] = useState({
@@ -16,11 +16,11 @@ export default function Register() {
     const { username, password, confirmPassword } = input;
     e.preventDefault();
     if (password !== confirmPassword) alert("Password not match, recheck");
-    axios
-      .post("http://localhost:8088/auth/register", {
-        username: username,
-        password: password,
-      })
+    // axios.post("http://localhost:8088/auth/register",
+    register({
+      username: username,
+      password: password,
+    })
       .then((rs) => {
         console.log(rs);
       })
@@ -32,7 +32,7 @@ export default function Register() {
       <form className="max-w-lg mx-auto" onSubmit={hdlSubmit}>
         <h2 className="text-3xl mb-4">Register Form</h2>
         <div className="flex w-full mb-4">
-          <i className="fa fa-user text-white min-w-16 text-center p-2.5 rounded-md bg-green-200" />
+          <i className="fa fa-user text-black min-w-16 text-center p-2.5 rounded-md bg-green-200" />
           <input
             className="w-full p-2.5 border focus:border-2 rounded-md"
             type="text"
@@ -44,7 +44,7 @@ export default function Register() {
         </div>
 
         <div className="flex w-full mb-4">
-          <i className="fa fa-key text-white min-w-16 text-center p-2.5 rounded-md bg-green-200" />
+          <i className="fa fa-key text-black min-w-16 text-center p-2.5 rounded-md bg-green-200" />
           <input
             className="w-full p-2.5 border focus:border-2 rounded-md"
             type="password"
@@ -55,7 +55,7 @@ export default function Register() {
           />
         </div>
         <div className="flex w-full mb-4">
-          <i className="fa fa-key text-white min-w-16 text-center p-2.5 rounded-md bg-green-200" />
+          <i className="fa fa-key text-black min-w-16 text-center p-2.5 rounded-md bg-green-200" />
           <input
             className="w-full p-2.5 border focus:border-2 rounded-md"
             type="password"
@@ -65,7 +65,7 @@ export default function Register() {
             value={input.confirmPassword}
           />
         </div>
-        <button type="submit" className="btn rounded-md">
+        <button type="submit" className="  text-black btn rounded-md">
           Register
         </button>
       </form>

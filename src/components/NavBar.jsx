@@ -22,6 +22,9 @@ export default function NavBar() {
         </>
       ) : (
         <>
+          <NavLink className="navlink" to="/">
+            Home
+          </NavLink>
           <NavLink className="navlink" to="/login">
             Login
           </NavLink>

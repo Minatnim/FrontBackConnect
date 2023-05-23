@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
-import axios from "axios";
+// import axios from "axios"; //เอาออกไปเลยหลังจากทำหน้า API แล้ว import ตัวอื่นมาใหม่
+import { login, getMe } from "../api/todoApi";
 
 export default function Login() {
   const { user, setUser } = useAuth();
@@ -17,18 +18,16 @@ export default function Login() {
   const hdlSubmit = (e) => {
     e.preventDefault();
     // validation
-    axios
-      .post("http://localhost:8088/auth/login", input)
+
+    login(input)
       .then((rs) => {
+        // console.log(rs.data.token)
         localStorage.setItem("token", rs.data.token);
-        return axios.get("http://localhost:8088/auth/getMe", {
-          headers: {
-            Authorization: `Bearer ${rs.data.token}`,
-          },
-        });
+        let token = localStorage.getItem("token");
+        return getMe(token);
       })
       .then((rs) => {
-        console.log(rs.data);
+        // console.log(rs.data)
         setUser(rs.data);
       })
       .catch((err) => alert(err.response.data.error || err.message));
@@ -39,7 +38,7 @@ export default function Login() {
       <form className="max-w-lg mx-auto" onSubmit={hdlSubmit}>
         <h2 className="text-3xl mb-4">Login Form</h2>
         <div className="flex w-full mb-4">
-          <i className="fa fa-user text-white min-w-16 text-center p-2.5 rounded-md bg-green-200" />
+          <i className="fa fa-user text-black min-w-16 text-center p-2.5 rounded-md bg-green-200" />
           <input
             className="w-full p-2.5 border focus:border-2 rounded-md"
             type="text"
@@ -51,7 +50,7 @@ export default function Login() {
         </div>
 
         <div className="flex w-full mb-4">
-          <i className="fa fa-key text-white min-w-16 text-center p-2.5 rounded-md bg-green-200" />
+          <i className="fa fa-key text-black min-w-16 text-center p-2.5 rounded-md bg-green-200" />
           <input
             className="w-full p-2.5 border focus:border-2 rounded-md"
             type="password"
@@ -62,7 +61,7 @@ export default function Login() {
           />
         </div>
 
-        <button type="submit" className="btn rounded-md">
+        <button type="submit" className=" text-black btn rounded-md">
           Login
         </button>
       </form>

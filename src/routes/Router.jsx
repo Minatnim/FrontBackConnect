@@ -25,7 +25,7 @@ export default function Router() {
         </>
       ),
 
-      errorElement: <NotFound />,
+      errorElement: <Navigate to="/login" />,
       children: [
         {
           path: "/",
